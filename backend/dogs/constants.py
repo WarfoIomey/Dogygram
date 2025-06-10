@@ -6,5 +6,13 @@ MIN_AGE_DOG = 0
 MAX_AGE_DOG = 20
 MIN_LEVEL = 1
 MAX_LEVEL = 5
-GENDER_CHOICE = ('Самец', 'Самка')
-SIZE_BREED = ('Tiny', 'Small', 'Medium', 'Large')
+GENDER_CHOICE = (
+    ('Самец', 'Самец'),
+    ('Самка', 'Самка')
+)
+SIZE_BREED = (
+    ('Tiny', 'Tiny'),
+    ('Small', 'Small'),
+    ('Medium', 'Medium'),
+    ('Large', 'Large'),
+)

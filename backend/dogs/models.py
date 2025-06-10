@@ -9,6 +9,7 @@ User = get_user_model()
 
 
 class Breed(models.Model):
+    """Модель породы собак с характеристиками."""
 
     name = models.CharField(
         help_text='Укажите назваине породы',
@@ -18,7 +19,8 @@ class Breed(models.Model):
     size = models.CharField(
         help_text='Выбирете размер собаки',
         choices=constants.SIZE_BREED,
-        verbose_name='Размер собаки'
+        verbose_name='Размер собаки',
+        max_length=20,
     )
     friendliness = models.PositiveSmallIntegerField(
         help_text='Укажите уровень дружелюбия от 1 до 5',
@@ -54,12 +56,17 @@ class Breed(models.Model):
     )
 
     class Meta:
-        ordering = ['-id']
+        ordering = ('-id',)
         verbose_name = 'Порода'
         verbose_name_plural = 'Породы'
 
+    def __str__(self):
+        return self.name
+
 
 class Dog(models.Model):
+    """Модель собаки с основными характеристиками."""
+
     name = models.CharField(
         max_length=constants.MAX_LENGTH_NAME,
         verbose_name='Имя собаки',
@@ -77,6 +84,7 @@ class Dog(models.Model):
         help_text='Выберите пол собаки',
         verbose_name='Пол собаки',
         choices=constants.GENDER_CHOICE,
+        max_length=20,
     )
     color = models.CharField(
         help_text='Укажите цвет собаки',
@@ -98,9 +106,10 @@ class Dog(models.Model):
         help_text='Укажите породу собаки',
         on_delete=models.CASCADE,
         related_name='dogs',
+        verbose_name='Порода',
     )
 
     class Meta:
-        ordering = ['-id']
+        ordering = ('-id',)
         verbose_name = 'Собака'
         verbose_name_plural = 'Собаки'
