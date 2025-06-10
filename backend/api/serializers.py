@@ -4,8 +4,9 @@ from dogs.models import Breed, Dog
 
 
 class BreedSerializer(serializers.ModelSerializer):
+    """Сериализатор модели Breed с подсчётом количества собак."""
 
-    count_dogs = serializers.SerializerMethodField()
+    count_dogs = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Breed
@@ -20,14 +21,11 @@ class BreedSerializer(serializers.ModelSerializer):
             'count_dogs'
         )
 
-    def get_count_dogs(self, obj):
-        pass
-
 
 class DogSerializer(serializers.ModelSerializer):
-    """"""
+    """Сериализатор модели Dog с средним возрастом породы."""
 
-    avg_age = serializers.SerializerMethodField()
+    avg_breed_age = serializers.FloatField(read_only=True)
 
     class Meta:
         model = Dog
@@ -40,15 +38,12 @@ class DogSerializer(serializers.ModelSerializer):
             'favorite_food',
             'favorite_toy',
             'breed',
-            'avg_age'
+            'avg_breed_age'
         )
-
-    def get_avg_age(self, obj):
-        pass
 
 
 class DogDetailSerializer(serializers.ModelSerializer):
-    """"""
+    """Детальный сериализатор модели Dog с количеством собак этой породы."""
 
     count_dogs_breeds = serializers.SerializerMethodField()
 
@@ -67,4 +62,13 @@ class DogDetailSerializer(serializers.ModelSerializer):
         )
 
     def get_count_dogs_breeds(self, obj):
+        """
+        Возвращает количество собак данной породы.
+
+        Args:
+            obj: Экземпляр модели Dog
+
+        Returns:
+            int: Количество собак этой же породы
+        """
         return obj.breed.dogs.count()
