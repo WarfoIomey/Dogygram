@@ -24,3 +24,5 @@ services:
       - static:/staticfiles/
     ports:
       - 8000:80
+    depends_on:
+      - backend
